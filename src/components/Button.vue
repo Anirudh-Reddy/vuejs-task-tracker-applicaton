@@ -2,7 +2,8 @@
    <button :style="{background:color}" class='btn' @click="onClick()">{{text}}</button>
 </template>
 
-<script>
+<script> 
+
 export default {
     name:'Button',
     props:{
