@@ -1,9 +1,8 @@
 <template>
-   <button :style="{background:color}" class='btn' @click="onClick()">{{text}}</button>
+   <button @click="onClick()" :style="{background:color}" class='btn'>{{text}}</button>
 </template>
 
 <script> 
-
 export default {
     name:'Button',
     props:{
@@ -12,8 +11,8 @@ export default {
     },
     methods:{
         onClick(){
-            console.log('hi')
+          this.$emit('btn-click');
         }
-    }
+    },
 }
 </script>
