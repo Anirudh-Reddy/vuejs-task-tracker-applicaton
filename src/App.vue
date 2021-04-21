@@ -1,25 +1,21 @@
 <template>
 <div class="container">
 <Header @toggle-add-task="toggleAddTask" title="Task Tracker" :showAddTask="showAddTask"/>
-<div v-if="showAddTask">
-  <AddTask @add-task="addTask" />
-</div>
-<Tasks @delete-task='deleteTask' @toggle-reminder='toggleReminder' :tasks='tasks' />
+<router-view :showAddTask="showAddTask"></router-view>
+<Footer />
 </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-import Tasks from './components/Tasks.vue'
-import AddTask from './components/AddTasks.vue'
+import Footer from './components/Footer.vue'
 export default {
   name: 'App',
   components: {
-     Header,Tasks,AddTask
+     Header,Footer
   },
   data(){
     return {
-      tasks:[],
       showAddTask:false
     }
   },
@@ -27,56 +23,7 @@ export default {
     toggleAddTask(){
       this.showAddTask = !this.showAddTask;
     },
-    async addTask(task){
-     const res = await fetch('api/tasks',{
-       method :'POST',
-       headers:{
-         'Content-type':'application/json',
-       },
-        body:JSON.stringify(task)
-     })
-     const data = await res.json()  
-     this.tasks.push(data)
-    },
-    async deleteTask(id){
-      if(confirm('Are you sure you want to delete it?')){
-        const res = await fetch(`api/tasks/${id}`,{
-       method :'DELETE',
-     })
-        res.status === 200 ? 
-                     (this.tasks = this.tasks.filter(task=>task.id !==id)) 
-                    : alert('Error deleting the task')        
-      }
-    },
-    async toggleReminder(id){
-      const tasksToToggle = await this.fetchTask(id);
-      const updateTask = {...tasksToToggle,reminder:!tasksToToggle.reminder}
-      const res = await fetch(`api/tasks/${id}`,{
-        method:'PUT',
-        headers:{
-          'Content-type':'application/json'
-        },
-        body:JSON.stringify(updateTask)
-      })
-      const data = await res.json()
-      this.tasks = this.tasks.map((task)=>
-        task.id === id ? {...task ,reminder:!data.reminder} : task
-      )
-    },
-    async fetchTasks(){
-     const res = await fetch('api/tasks');
-     const data = await res.json();
-     return data;
-    },
-    async fetchTask(id){
-     const res = await fetch(`api/tasks/${id}`);
-     const data = await res.json();
-     return data;
-    }
   },
-  async created(){
-      this.tasks= await this.fetchTasks();
-    },
 }
 </script>
 
@@ -89,15 +36,17 @@ export default {
 }
 body {
   font-family: 'Poppins', sans-serif;
+  background-color: aliceblue;
 }
 .container {
   max-width: 500px;
   margin: 30px auto;
   overflow: auto;
   min-height: 300px;
-  border: 1px solid steelblue;
+  border: 1px solid grey;
   padding: 30px;
   border-radius: 5px;
+  background-color: white;
 }
 .btn {
   display: inline-block;

@@ -7,16 +7,22 @@
       "reminder": false
     },
     {
-      "id": "2",
-      "text": "Meeting with boss",
+      "id": 47062,
+      "text": "Shopping",
+      "day": "April 10th at 11:00am",
+      "reminder": true
+    },
+    {
+      "id": 93459,
+      "text": "Meeting with client",
       "day": "March 6th at 1:30pm",
       "reminder": false
     },
     {
-      "id": "3",
-      "text": "Food shopping",
-      "day": "March 7th at 2:00pm",
-      "reminder": false
+      "id": 43127,
+      "text": "Testing",
+      "day": "August 11th at 12pm",
+      "reminder": true
     }
   ]
 }
